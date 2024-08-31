@@ -1,0 +1,35 @@
+import re
+
+def check_password_strength(password):
+    length_criteria = len(password) >= 8
+    upper_case_criteria = bool(re.search(r'[A-Z]', password))
+    lower_case_criteria = bool(re.search(r'[a-z]', password))
+    digit_criteria = bool(re.search(r'[0-9]', password))
+    special_char_criteria = bool(re.search(r'[~!@#$%^&*()_+\-={}\[\]:;"\'<>,.?/\\|`]', password))
+
+    criteria_met = sum([length_criteria, upper_case_criteria, lower_case_criteria, digit_criteria, special_char_criteria])
+
+    if criteria_met == 5:
+        return "Very Strong"
+    elif criteria_met == 4:
+        return "Strong"
+    elif criteria_met == 3:
+        return "Moderate"
+    elif criteria_met == 2:
+        return "Weak"
+    else:
+        return "Very Weak"
+
+def main():
+    while True:
+        print("Password Complexity Checker")
+        password = input("Enter the password to check (or 'exit' to quit): ")
+        
+        if password.lower() == 'exit':
+            break
+        
+        strength = check_password_strength(password)
+        print(f"Password Strength: {strength}")
+
+if __name__ == "__main__":
+    main()
